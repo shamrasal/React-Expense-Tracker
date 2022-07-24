@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  height: 50px;
+  background-color: white;
+}
+
+.span1 {
+  width: 30%;
+  display: flex;
+}
+
+.span1 h1 {
+  width: 30%;
+  color: blue;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.span2 {
+  width: 33%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.span2 h4 {
+  width: 70%;
+  color: black;
+  display: flex;
+}
+
+.img {
+  background-size: cover;
+  width: 100%;
+}

@@ -1,0 +1,7 @@
+.img {
+  background-size: cover;
+  width: 100%;
+  position: absolute;
+  z-index: -2;
+  top: 56px;
+}
