@@ -1,13 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom'
 import classes from './SignUpForm.module.css';
-
+import AuthContext from '../Store/Auth-contex';
 const SignUpForm = () => {
+    const authctx = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false);
-
+    const history = useHistory()
 
     const enteredEmailRef = useRef('')
     const enteredPasswordRef = useRef('')
     const confirmPasswordRef = useRef('')
+
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -33,8 +36,10 @@ const SignUpForm = () => {
                 if (res.ok) {
                     res.json().then(data => {
                         console.log('User has successfully signed up')
-
+                        authctx.logIn(data.idToken)
                     })
+
+                    history.replace('/signin')
                 } else {
                     res.json().then(data => {
                         console.log(data)
@@ -64,30 +69,30 @@ const SignUpForm = () => {
     }
 
     return (
-        <section className={classes.auth}>
-            <h1>{'Sign Up'}</h1>
-            <form onSubmit={submitHandler}>
-                <div className={classes.control}>
-                    <label htmlFor='email'>Email</label>
-                    <input type='email' id='email' ref={enteredEmailRef} required />
-                </div>
-                <div className={classes.control}>
-                    <label htmlFor='password'>Password</label>
-                    <input type='password' id='password' ref={enteredPasswordRef} required />
-                </div>
-                <div className={classes.control}>
-                    <label htmlFor='password'>Confirm Password</label>
-                    <input type='password' id='password1' ref={confirmPasswordRef} required />
-                </div>
-                <div className={classes.actions}>
-                    {isLoading && <lable>Sending Request...</lable>}
-                    {<button>{'Sign UP'}</button>}
-                    <button type='button' className={classes.toggle}>
-                        {'Login with existing account'}
-                    </button>
-                </div>
-            </form>
-        </section>
+        <div>
+            <section className={classes.auth}>
+                <h1>{'Sign Up'}</h1>
+                <form onSubmit={submitHandler}>
+                    <div className={classes.control}>
+                        <label htmlFor='email'>Email</label>
+                        <input type='email' id='email' ref={enteredEmailRef} required />
+                    </div>
+                    <div className={classes.control}>
+                        <label htmlFor='password'>Password</label>
+                        <input type='password' id='password' ref={enteredPasswordRef} required />
+                    </div>
+                    <div className={classes.control}>
+                        <label htmlFor='password'>Confirm Password</label>
+                        <input type='password' id='password1' ref={confirmPasswordRef} required />
+                    </div>
+                    <div className={classes.actions}>
+                        {isLoading && <lable>Sending Request...</lable>}
+                        {<button>{'Sign UP'}</button>}
+                        <Link className={classes.toggle} to={'/signin'}>{'Login with existing account'}</Link>
+                    </div>
+                </form>
+            </section>
+        </div>
     );
 };
 
