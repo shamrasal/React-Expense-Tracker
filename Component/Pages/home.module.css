@@ -52,3 +52,29 @@
   width: max-content;
   border: none;
 }
+
+.email {
+  border-radius: 13px;
+  display: flex;
+  width: max-content;
+  border: none;
+}
+
+.verify {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 35px;
+  color: red;
+  border: 1px solid red;
+  width: 115px;
+  padding: 4%;
+  height: inherit;
+  align-self: center;
+  justify-content: center;
+}
+
+.verify:hover {
+  background-color: #d4d4d4;
+  border-color: #ffffff;
+}
