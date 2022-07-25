@@ -34,3 +34,23 @@
   background-size: cover;
   width: 100%;
 }
+
+.actions {
+  display: flex;
+  margin: auto;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: rgb(255, 255, 255);
+  background-color: #4c00ff;
+  border: 1px solid #5c5ecc;
+  border-radius: 50px;
+  padding: 0.3rem 1.5rem;
+}
+
+.actions button:hover {
+  background-color: #873abb;
+  border-color: #873abb;
+}
