@@ -2,7 +2,6 @@ import classes from './Header.module.css'
 
 const Header = () => {
     return (
-
         <div className={classes.header}>
             <span className={classes.span1}>
                 <h1>MyWebLink</h1>
@@ -15,4 +14,5 @@ const Header = () => {
         </div>
     )
 }
+
 export default Header

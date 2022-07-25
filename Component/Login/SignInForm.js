@@ -82,7 +82,6 @@ const SignInForm = () => {
                     <Link>Dont have a account? signup</Link>
                 </div>
             </form>
-
         </section>
     );
 };

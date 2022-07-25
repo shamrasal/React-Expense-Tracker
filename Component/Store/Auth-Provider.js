@@ -27,6 +27,7 @@ const AuthContexProvider = (props) => {
         logIn: loginHandler,
         logOut: logOutHandler
     }
+
     return (
         <AuthContext.Provider value={authcontext}>
             {props.children}

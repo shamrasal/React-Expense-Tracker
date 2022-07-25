@@ -2,15 +2,14 @@ import { useState, useRef, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import classes from './SignUpForm.module.css';
 import AuthContext from '../Store/Auth-contex';
+
 const SignUpForm = () => {
     const authctx = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory()
-
     const enteredEmailRef = useRef('')
     const enteredPasswordRef = useRef('')
     const confirmPasswordRef = useRef('')
-
 
     const submitHandler = (event) => {
         event.preventDefault()

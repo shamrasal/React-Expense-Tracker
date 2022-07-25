@@ -52,3 +52,52 @@
   width: max-content;
   border: none;
 }
+
+.form {
+  width: auto;
+  border: none;
+  margin-block-start: 15px;
+  padding: 1%;
+  margin-left: 150px;
+  border-bottom: 1px solid black;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+  display: flex;
+  padding: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.control label {
+  display: content;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.control input {
+  font: inherit;
+  background-color: #ffffff;
+  height: 30px;
+  width: 36%;
+  color: #38015c;
+  border: 2px solid rgb(0, 0, 0);
+  text-align: left;
+  padding: 0.45rem;
+}
+
+.buttonl1 {
+  border: 1px solid red;
+  color: red;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.buttonl2 {
+  border: 1px solid rgb(206, 0, 0);
+  color: rgb(255, 255, 255);
+  background-color: rgb(206, 0, 0);
+  border-radius: 5px;
+}
