@@ -1,11 +1,43 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import AuthContext from '../Store/Auth-contex'
 import classes from './ProfileUpdateForm.module.css'
 const ProfileUpdateForm = () => {
     const fullnameref = useRef('')
     const ProfilePhotoRef = useRef('')
+    const [retry, setRetry] = useState(false)
     const [updated, setUpdated] = useState(false)
     const ctx = useContext(AuthContext)
+
+    useEffect(() => {
+        fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDLwFZKg8KZEIlRPJ_FBc37TP7Vk45D3AE',
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    idToken: ctx.token,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        ).then(res => {
+            if (res.ok) {
+                res.json().then(data => {
+                    fullnameref.current.value = data.users[0].displayName
+                    ProfilePhotoRef.current.value = data.users[0].photoUrl
+                })
+            } else {
+                res.json().then(data => {
+                    let errorMessage = 'authentication failed...'
+                    if (data && data.error && data.error.message) {
+                        errorMessage = data.error.message
+                    }
+                    alert(errorMessage)
+                })
+            }
+        })
+
+    }, [ctx.token, retry]);
+
     const onSubmitHandler = (event) => {
         event.preventDefault()
         const enteredFullName = fullnameref.current.value
@@ -30,6 +62,7 @@ const ProfileUpdateForm = () => {
                     console.log('Profile Updated')
                     console.log(data)
                     setUpdated(true)
+                    setRetry((retry) => !retry)
                 })
             } else {
                 res.json().then(data => {
@@ -50,6 +83,7 @@ const ProfileUpdateForm = () => {
         fullnameref.current.value = ''
         ProfilePhotoRef.current.value = ''
     }
+
     return (
         <div className={classes.home}>
             <span className={classes.span1}>
