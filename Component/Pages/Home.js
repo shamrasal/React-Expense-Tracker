@@ -5,6 +5,7 @@ import classes from './home.module.css'
 const Home = () => {
     const ctx = useContext(AuthContext)
     const [done, setDone] = useState(false)
+
     const verifyHandler = (event) => {
         event.preventDefault()
         fetch('https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyDLwFZKg8KZEIlRPJ_FBc37TP7Vk45D3AE',

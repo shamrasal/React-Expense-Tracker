@@ -76,10 +76,10 @@ const SignInForm = () => {
                     {<button>{'login'}</button>}
                 </div>
                 <div className={classes.actions}>
-                    <Link>forget password</Link>
+                    <Link to={'forgotpassword'}>forgot password ?</Link>
                 </div>
                 <div className={classes.actions1}>
-                    <Link>Dont have a account? signup</Link>
+                    <Link to={'/signup'}>Dont have a account? signup</Link>
                 </div>
             </form>
         </section>

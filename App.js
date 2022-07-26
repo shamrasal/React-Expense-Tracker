@@ -6,6 +6,7 @@ import SignUpForm from "./Component/Login/SignUpForm";
 import SignInForm from "./Component/Login/SignInForm";
 import Home from './Component/Pages/Home';
 import ProfileUpdateForm from './Component/Pages/ProfileUpdateForm';
+import Forgotpassword from './Component/Pages/forgotPassword';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path={'/home/profile'}>
           <ProfileUpdateForm></ProfileUpdateForm>
+        </Route>
+        <Route path={'/forgotpassword'}>
+          <Forgotpassword></Forgotpassword>
         </Route>
       </Switch>
       <img className={classes.img} alt='back' src={Back}></img>

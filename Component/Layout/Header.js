@@ -23,7 +23,8 @@ const Header = () => {
                 <h4>Contact Us</h4>
             </span>
             <span className={classes.actions}>
-                <button onClick={logoutHandler}>Log Out</button>
+                {ctx.isLoggedIn && <button onClick={logoutHandler}>Log Out</button>}
+
             </span>
         </div>
     )
