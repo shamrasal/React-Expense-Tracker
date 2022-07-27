@@ -3,12 +3,15 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import AuthContexProvider from './Component/Store/Auth-Provider';
+import ExpenseProvider from './Component/Store/Expense-Provider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-        <AuthContexProvider>
-            <App />
-        </AuthContexProvider>
+        <ExpenseProvider>
+            <AuthContexProvider>
+                <App />
+            </AuthContexProvider>
+        </ExpenseProvider>
     </BrowserRouter>
 );

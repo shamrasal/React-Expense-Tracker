@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import AuthContext from '../Store/Auth-contex'
 import classes from './Header.module.css'
 
@@ -19,12 +19,12 @@ const Header = () => {
             </span>
             <span className={classes.span2}>
                 <h4>Home</h4>
+                {ctx.isLoggedIn && <h4><NavLink to={'/expenses'}>Expenses</NavLink></h4>}
                 <h4>About</h4>
                 <h4>Contact Us</h4>
             </span>
             <span className={classes.actions}>
                 {ctx.isLoggedIn && <button onClick={logoutHandler}>Log Out</button>}
-
             </span>
         </div>
     )

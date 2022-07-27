@@ -1,0 +1,153 @@
+.auth {
+  margin: 6rem auto;
+  width: 95%;
+  max-width: 85%;
+  border-radius: 6px;
+  background-color: #ffffffd9;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  color: rgb(0, 0, 0);
+}
+
+.auth h1 {
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: left;
+  margin: auto;
+  padding: 1%;
+}
+
+.control input {
+  font: inherit;
+  background-color: #f1e1fc;
+  color: #38015c;
+  border-radius: 10px;
+  border: 1px solid white;
+  width: 92%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  text-align: left;
+  padding: 1%;
+}
+.control select {
+  font: inherit;
+  background-color: #f1e1fc;
+  color: #38015c;
+  border-radius: 10px;
+  border: 1px solid white;
+  width: 92%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  text-align: left;
+  padding: 1%;
+}
+
+.actions {
+  display: flex;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  justify-content: flex-end;
+}
+
+.actions button {
+  cursor: pointer;
+  font: inherit;
+  color: rgb(255, 255, 255);
+  background-color: #086fc1;
+  border: 1px solid #5c5ecc;
+  border-radius: 50px;
+  margin: 2px;
+  padding: 1%;
+  width: -webkit-fill-available;
+}
+
+.actions button:hover {
+  background-color: #873abb;
+  border-color: #873abb;
+}
+
+.actions .toggle {
+  margin-top: 1rem;
+  background-color: transparent;
+  color: #b690cf;
+  border: none;
+  padding: 0.15rem 1.5rem;
+}
+
+.actions .toggle:hover {
+  background-color: transparent;
+  color: #ae82cc;
+}
+
+.actions1 {
+  margin-top: 1.5rem;
+  display: flex;
+  color: black;
+  text-align: center;
+  flex-direction: column;
+  border: black;
+  background-color: rgb(168, 169, 255);
+  padding: 1%;
+}
+
+.actions1 Link {
+  margin-top: 1.5rem;
+  display: flex;
+  color: black;
+  text-align: center;
+  flex-direction: column;
+  border: black;
+  background-color: rgb(168, 169, 255);
+  padding: 1%;
+}
+
+.span1 {
+  width: 50%;
+}
+
+.span2 {
+  width: 50%;
+  background-color: black;
+  color: white;
+}
+
+.img {
+  width: -webkit-fill-available;
+  margin-top: 51px;
+}
+
+.section1 {
+  height: 40%;
+  margin: 0%;
+}
+
+.section1 h1 {
+  height: 50%;
+  padding: 14%;
+  font-size: xx-large;
+  color: #bf4242;
+}
+
+.section2 {
+  height: 50%;
+}
+
+.form {
+  height: 100%;
+}
+
+.lable11 {
+  color: white;
+}
