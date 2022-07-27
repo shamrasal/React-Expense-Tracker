@@ -1,17 +1,31 @@
-import React, { useState, useContext } from "react";
-import AuthContext from "./Auth-contex";
+import React, { useState } from "react";
 import ExpenseContext from "./Expense-context";
 
 const ExpenseProvider = (props) => {
     const [items, setItems] = useState([]);
-    const ctx = useContext(AuthContext)
-    console.log(ctx)
+    const userEmail = localStorage.getItem('email')
+    const addItemHandler = async (item) => {
 
-    const addItemHandler = (item) => {
-        setItems((prev) => {
-            return [...prev, item]
-        })
+        try {
+            const response = await fetch(`https://expense-87421-default-rtdb.firebaseio.com//${userEmail}.json`, {
+                method: 'POST',
+                body: JSON.stringify(item),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (!response.ok) {
+                throw new Error('Something went wrong! plz try again...');
+            }
+            const data = await response.json()
+            console.log(data)
+            setItems((prev) => {
+                return [...prev, item]
+            })
 
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const updateItemHandler = (item) => {

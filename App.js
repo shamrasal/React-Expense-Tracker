@@ -13,6 +13,7 @@ import AuthContext from './Component/Store/Auth-contex';
 
 function App() {
   const ctx = useContext(AuthContext)
+  console.log(ctx)
   return (
     <div>
       <Header></Header>

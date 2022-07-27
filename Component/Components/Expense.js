@@ -6,20 +6,49 @@ import classes from './Expenses.module.css'
 const Expense = () => {
     const [showForm, setShowForm] = useState(false);
     const [expenseitem, setExpenseList] = useState();
-
     const ctx = useContext(ExpenseContext)
-
+    const userEmail = localStorage.getItem('email')
     const onFormShowHandler = () => {
         setShowForm(true)
     }
     useEffect(() => {
-        const expenseList = ctx.item.map((expense) => (<ExpenseList
-            key={Math.random().toString()}
-            amount={expense.amount}
-            description={expense.description}
-            category={expense.category} />))
-        setExpenseList(expenseList)
-    }, [ctx.item])
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`https://expense-87421-default-rtdb.firebaseio.com//${userEmail}.json`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                if (!response.ok) {
+                    throw new Error('Something went wrong! plz try again...');
+                }
+                const data = await response.json()
+                console.log(data)
+                const loadedData = []
+                for (const key in data) {
+                    loadedData.push({
+                        id: key,
+                        amount: data[key].amount,
+                        description: data[key].description,
+                        category: data[key].category,
+                    })
+                }
+                const expenseList = loadedData.map((expense) => (<ExpenseList
+                    key={Math.random().toString()}
+                    amount={expense.amount}
+                    description={expense.description}
+                    category={expense.category} />))
+                setExpenseList(expenseList)
+                console.log(expenseList)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        fetchData()
+
+    }, [ctx.item, userEmail])
 
     return (
         <section className={classes.auth}>
@@ -38,7 +67,6 @@ const Expense = () => {
                                 <div className={classes.price}>{'Amount'}</div>
                             </div>
                         </li>
-                        {ctx.item.length === 0 && <p>No old expense..Add new..!</p>}
                         {expenseitem}
                     </ul>
                 </section>

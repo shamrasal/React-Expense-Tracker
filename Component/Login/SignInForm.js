@@ -35,7 +35,7 @@ const SignInForm = () => {
                 res.json().then(data => {
                     console.log('User signed in')
                     console.log(data)
-                    const loginEmail = enteredEmail.replace(/[^a-zA-Z ]/g, "")
+                    const loginEmail = data.email.replace(/[^a-zA-Z ]/g, "")
                     Authctx.logIn(data.idToken, loginEmail)
                     history.replace('/home')
                 })
