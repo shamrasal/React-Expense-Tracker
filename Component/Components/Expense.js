@@ -7,6 +7,7 @@ const Expense = () => {
     const [showForm, setShowForm] = useState(false);
     const [expenseitem, setExpenseList] = useState();
     const ctx = useContext(ExpenseContext)
+    const [retry, setRetry] = useState(false)
     const userEmail = localStorage.getItem('email')
     const onFormShowHandler = () => {
         setShowForm(true)
@@ -35,9 +36,11 @@ const Expense = () => {
                     })
                 }
                 const expenseList = loadedData.map((expense) => (<ExpenseList
-                    key={Math.random().toString()}
+                    key={expense.id}
+                    id={expense.id}
                     amount={expense.amount}
                     description={expense.description}
+                    retry={setRetry}
                     category={expense.category} />))
                 setExpenseList(expenseList)
                 console.log(expenseList)
@@ -48,7 +51,7 @@ const Expense = () => {
 
         fetchData()
 
-    }, [ctx.item, userEmail])
+    }, [ctx.item, userEmail, retry])
 
     return (
         <section className={classes.auth}>
@@ -65,6 +68,7 @@ const Expense = () => {
                                 <h3>{'Description'}</h3>
                                 <div className={classes.description}>{'Category'}</div>
                                 <div className={classes.price}>{'Amount'}</div>
+                                <div>  </div>
                             </div>
                         </li>
                         {expenseitem}
