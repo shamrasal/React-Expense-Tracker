@@ -4,16 +4,26 @@ import AddNewExpense from './AddNewExpense'
 import ExpenseList from './ExpenseList';
 import { expenseActions } from '../Store/Expense';
 import classes from './Expenses.module.css'
+import { themeActions } from '../Store/Theme';
+
 const Expense = () => {
     const [showForm, setShowForm] = useState(false);
+    let [link, setLink] = useState();
     const ctxitem = useSelector(state => state.expense.item)
     const ctxamont = useSelector(state => state.expense.totalAmount)
+    const isPrimium = useSelector(state => state.theme.isPremium)
     console.log(ctxamont)
     console.log(ctxitem)
     const dispatch = useDispatch()
     const [expenseitem, setExpenseList] = useState();
     const [retry, setRetry] = useState(false)
     const userEmail = localStorage.getItem('email')
+
+    const onPremiumHandler = () => {
+        dispatch(themeActions.Premium())
+        dispatch(themeActions.switch())
+
+    }
     const onFormShowHandler = () => {
         setShowForm(true)
     }
@@ -42,6 +52,24 @@ const Expense = () => {
                         category: data[key].category,
                     })
                 }
+                setLink(loadedData)
+
+                let csvData = []
+                for (const key in data) {
+                    csvData.push([
+                        data[key].description,
+                        data[key].category,
+                        data[key].amount,
+                    ])
+                }
+                console.log(csvData)
+
+                const blob1 = new Blob([csvData])
+                console.log(blob1)
+                const a1href = URL.createObjectURL(blob1)
+                console.log(a1href)
+                setLink(a1href)
+
                 const expenseList = loadedData.map((expense) => (<ExpenseList
                     key={expense.id}
                     id={expense.id}
@@ -58,7 +86,6 @@ const Expense = () => {
 
         }
         fetchData()
-
     }, [ctxitem, userEmail, retry, dispatch])
 
     return (
@@ -84,8 +111,15 @@ const Expense = () => {
                 </section>
                 <section className={classes.section2}>
                     <div className={classes.actions}>
-                        {ctxamont > 10000 && <button className={classes.but} onClick={onFormShowHandler}>Activate Premium</button>}
+                        {ctxamont > 10000 && <button className={classes.but} onClick={onPremiumHandler}>Activate Premium</button>}
                         <button className={classes.but1} onClick={onFormShowHandler}>Add New Expense</button>
+                        {isPrimium && <a
+                            className={classes.but1}
+                            id='a1'
+                            href={link}
+                            download='file1.csv'
+                        >downloaded as csv.
+                        </a>}
                     </div>
                 </section>
             </span>

@@ -12,6 +12,8 @@ import Expense from './Component/Components/Expense';
 
 function App() {
   const AuthisLogin = useSelector(state => state.auth.isLoggedIn)
+  const AuthisPremium = useSelector(state => state.theme.changeTheme)
+
   return (
     <div>
       <Header></Header>
@@ -39,13 +41,13 @@ function App() {
             <Expense></Expense>
           </Route>
         }
-        {AuthisLogin &&
+        {/* {AuthisLogin &&
           <Route path={'*'}>
             <Redirect to={'/signup'} />
           </Route>
-        }
+        } */}
       </Switch>
-      <img className={classes.img} alt='back' src={Back}></img>
+      {!AuthisPremium && <img className={classes.img} alt='back' src={Back}></img>}
     </div>
   );
 }
