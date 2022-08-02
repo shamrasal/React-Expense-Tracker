@@ -1,12 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AddNewExpense from './AddNewExpense'
 import ExpenseList from './ExpenseList';
-import ExpenseContext from '../Store/Expense-context';
+import { expenseActions } from '../Store/Expense';
 import classes from './Expenses.module.css'
 const Expense = () => {
     const [showForm, setShowForm] = useState(false);
+    const ctxitem = useSelector(state => state.expense.item)
+    const ctxamont = useSelector(state => state.expense.totalAmount)
+    console.log(ctxamont)
+    console.log(ctxitem)
+    const dispatch = useDispatch()
     const [expenseitem, setExpenseList] = useState();
-    const ctx = useContext(ExpenseContext)
     const [retry, setRetry] = useState(false)
     const userEmail = localStorage.getItem('email')
     const onFormShowHandler = () => {
@@ -14,6 +19,7 @@ const Expense = () => {
     }
     useEffect(() => {
         const fetchData = async () => {
+            let totalamount = 0
             try {
                 const response = await fetch(`https://expense-87421-default-rtdb.firebaseio.com//${userEmail}.json`, {
                     method: 'GET',
@@ -25,12 +31,13 @@ const Expense = () => {
                     throw new Error('Something went wrong! plz try again...');
                 }
                 const data = await response.json()
-                console.log(data)
                 const loadedData = []
                 for (const key in data) {
+                    totalamount = totalamount + +data[key].amount
                     loadedData.push({
                         id: key,
                         amount: data[key].amount,
+                        totalAmount: totalamount,
                         description: data[key].description,
                         category: data[key].category,
                     })
@@ -47,11 +54,12 @@ const Expense = () => {
             } catch (error) {
                 console.log(error)
             }
-        }
+            dispatch(expenseActions.totalPrice(totalamount))
 
+        }
         fetchData()
 
-    }, [ctx.item, userEmail, retry])
+    }, [ctxitem, userEmail, retry, dispatch])
 
     return (
         <section className={classes.auth}>
@@ -76,7 +84,8 @@ const Expense = () => {
                 </section>
                 <section className={classes.section2}>
                     <div className={classes.actions}>
-                        <button onClick={onFormShowHandler}>Add New Expense</button>
+                        {ctxamont > 10000 && <button className={classes.but} onClick={onFormShowHandler}>Activate Premium</button>}
+                        <button className={classes.but1} onClick={onFormShowHandler}>Add New Expense</button>
                     </div>
                 </section>
             </span>

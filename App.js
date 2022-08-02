@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom'
 import Header from "./Component/Layout/Header";
 import Back from './Component/Assets/BACK.jpg'
@@ -9,11 +9,9 @@ import Home from './Component/Pages/Home';
 import ProfileUpdateForm from './Component/Pages/ProfileUpdateForm';
 import Forgotpassword from './Component/Pages/forgotPassword';
 import Expense from './Component/Components/Expense';
-import AuthContext from './Component/Store/Auth-contex';
 
 function App() {
-  const ctx = useContext(AuthContext)
-  console.log(ctx)
+  const AuthisLogin = useSelector(state => state.auth.isLoggedIn)
   return (
     <div>
       <Header></Header>
@@ -36,12 +34,12 @@ function App() {
         <Route path={'/forgotpassword'}>
           <Forgotpassword></Forgotpassword>
         </Route>
-        {ctx.isLoggedIn &&
+        {AuthisLogin &&
           <Route path={'/expenses'}>
             <Expense></Expense>
           </Route>
         }
-        {!ctx.isLoggedIn &&
+        {AuthisLogin &&
           <Route path={'*'}>
             <Redirect to={'/signup'} />
           </Route>

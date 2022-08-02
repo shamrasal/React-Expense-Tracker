@@ -1,15 +1,15 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import AuthContext from '../Store/Auth-contex';
 import classes from './SignInForm.module.css';
+import { authActions } from '../Store/Auth';
 
 const SignInForm = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const Authctx = useContext(AuthContext)
+    const dispatch = useDispatch()
     const EmailRef = useRef('')
     const PasswordRef = useRef('')
     const history = useHistory()
-    console.log(Authctx)
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -36,7 +36,8 @@ const SignInForm = () => {
                     console.log('User signed in')
                     console.log(data)
                     const loginEmail = data.email.replace(/[^a-zA-Z ]/g, "")
-                    Authctx.logIn(data.idToken, loginEmail)
+                    dispatch(authActions.login({ token: data.idToken, email: loginEmail }))
+                    // Authctx.logIn(data.idToken, loginEmail)
                     history.replace('/home')
                 })
             } else {
@@ -64,11 +65,11 @@ const SignInForm = () => {
             <h1>{'login'}</h1>
             <form onSubmit={submitHandler}>
                 <div className={classes.control}>
-                    <label htmlFor='email'>Email</label>
+                    <label>Email</label>
                     <input type='email' id='loginemail' ref={EmailRef} required />
                 </div>
                 <div className={classes.control}>
-                    <label htmlFor='password'>Password</label>
+                    <label>Password</label>
                     <input type='password' id='loginpassword' ref={PasswordRef} required />
                 </div>
                 <div className={classes.actions}>

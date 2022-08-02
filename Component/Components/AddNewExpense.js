@@ -1,18 +1,18 @@
-import React, { useRef, useContext } from 'react'
-import ExpenseContext from '../Store/Expense-context'
+import React, { useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import classes from './AddNewExpense.module.css'
+import { expenseActions } from '../Store/Expense'
 
 const AddNewExpense = (props) => {
+    const dispatch = useDispatch()
     const amountRef = useRef()
     const descriptionRef = useRef()
     const categoryRef = useRef()
-    const ctx = useContext(ExpenseContext)
-
     const cancelFormHandler = (event) => {
         event.preventDefault()
         props.setForm(false)
     }
-    const onSubmitHandler = (event) => {
+    const onSubmitHandler = async (event) => {
         event.preventDefault()
         const enteredAmount = amountRef.current.value
         const enteredDescription = descriptionRef.current.value
@@ -24,8 +24,27 @@ const AddNewExpense = (props) => {
             category: enteredCategory
         }
         console.log(inputDetails)
-        ctx.addItem(inputDetails)
 
+        const userEmail = localStorage.getItem('email')
+        try {
+            const response = await fetch(`https://expense-87421-default-rtdb.firebaseio.com//${userEmail}.json`, {
+                method: 'POST',
+                body: JSON.stringify(inputDetails),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (!response.ok) {
+                throw new Error('Something went wrong! plz try again...');
+            }
+            const data = await response.json()
+            console.log(data)
+            dispatch(expenseActions.addItem(inputDetails))
+        } catch (error) {
+            console.log(error)
+        }
+
+        console.log('hii')
         amountRef.current.value = ''
         descriptionRef.current.value = ''
         categoryRef.current.value = ''

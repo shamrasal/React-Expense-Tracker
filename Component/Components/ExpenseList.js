@@ -1,13 +1,14 @@
 import React, { useState, useRef } from "react"
+import { useDispatch } from "react-redux"
 import classes from './ExpenseList.module.css'
+import { expenseActions } from "../Store/Expense"
 const ExpenseList = (props) => {
+    const dispatch = useDispatch()
     const userEmail = localStorage.getItem('email')
     const [isediting, setIsediting] = useState(false)
     const descriptionRef = useRef()
     const AmountRef = useRef()
     const CategoryRef = useRef()
-    console.log(props.id, 'hiii')
-
     const onsubmitHandler = async (event) => {
         event.preventDefault()
         const enteredAmount = AmountRef.current.value
@@ -47,7 +48,6 @@ const ExpenseList = (props) => {
         setIsediting(false)
     }
 
-    console.log(props.category)
     const onEditHandler = (event) => {
         event.preventDefault()
         setIsediting(true)
@@ -68,6 +68,7 @@ const ExpenseList = (props) => {
             const data = await response.json()
             console.log(data)
             props.retry((retry) => !retry)
+            dispatch(expenseActions.removeItem(props.id))
             console.log('Expense successfuly deleted')
         } catch (error) {
             console.log(error)
